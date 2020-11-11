@@ -44,7 +44,6 @@ RUN apt-get update && \
         wmii \
         xfonts-base \
         wget \
-        sh \
         xfonts-scalable && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
