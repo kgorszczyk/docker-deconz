@@ -39,6 +39,9 @@ RUN apt-get update && \
         libqt5widgets5 \
         lsof \
         gnupg \
+        build-essential \
+        libx11-xcb-dev \
+        libglu1-mesa-dev \
         sqlite3 \
         tigervnc-standalone-server \
         tigervnc-common \
