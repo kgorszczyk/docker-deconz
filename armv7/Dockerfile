@@ -48,7 +48,8 @@ RUN apt-get update && \
         xfonts-scalable && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
-    wget http://phoscon.de/apt/deconz.pub.key | apt-key add deconz.pub.key && \
+    wget http://phoscon.de/apt/deconz.pub.key && \
+    apt-key add deconz.pub.key && \
     sh -c "echo 'deb http://phoscon.de/apt/deconz buster-beta main' > /etc/apt/sources.list.d/deconz.list" && \
     apt-get update && \
     apt-get install -y \
