@@ -44,7 +44,14 @@ RUN apt-get update && \
         xfonts-base \
         xfonts-scalable && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    wget -O - http://phoscon.de/apt/deconz.pub.key | sudo apt-key add - && \
+    sh -c "echo 'deb http://phoscon.de/apt/deconz buster-beta main' > /etc/apt/sources.list.d/deconz.list" && \
+    apt-get update && \
+    apt-get install -y \
+        deconz-dev && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
 
 # Add WiringPi, install WiringPi
 ADD https://project-downloads.drogon.net/wiringpi-latest.deb /wiringpi.deb
