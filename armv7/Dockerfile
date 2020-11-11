@@ -43,10 +43,12 @@ RUN apt-get update && \
         tigervnc-common \
         wmii \
         xfonts-base \
+        wget \
+        sh \
         xfonts-scalable && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
-    wget -O - http://phoscon.de/apt/deconz.pub.key | sudo apt-key add - && \
+    wget -O - http://phoscon.de/apt/deconz.pub.key | apt-key add - && \
     sh -c "echo 'deb http://phoscon.de/apt/deconz buster-beta main' > /etc/apt/sources.list.d/deconz.list" && \
     apt-get update && \
     apt-get install -y \
