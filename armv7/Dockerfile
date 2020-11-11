@@ -52,7 +52,7 @@ RUN apt-get update && \
     apt-get install -y \
         deconz-dev && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /var/lib/apt/lists/*
 
 # Add WiringPi, install WiringPi
 ADD https://project-downloads.drogon.net/wiringpi-latest.deb /wiringpi.deb
