@@ -28,6 +28,7 @@ RUN apt-get update && \
     apt-get install -y \
         curl \
         kmod \
+        git \
         libcap2-bin \
         libqt5core5a \
         libqt5gui5 \
@@ -64,9 +65,16 @@ RUN chmod +x /start.sh && \
     chmod +x /firmware-update.sh
 
 # Add deCONZ, install deCONZ, make OTAU dir
-ADD http://deconz.dresden-elektronik.de/raspbian/${CHANNEL}/deconz-${DECONZ_VERSION}-qt5.deb /deconz.deb
-RUN dpkg -i /deconz.deb && \
-    rm -f /deconz.deb && \
+#ADD http://deconz.dresden-elektronik.de/raspbian/${CHANNEL}/deconz-${DECONZ_VERSION}-qt5.deb /deconz.deb
+#RUN dpkg -i /deconz.deb && \
+#    rm -f /deconz.deb && \
+#    mkdir /root/otau && \
+#    chown root:root /usr/bin/deCONZ*
+
+RUN git clone --branch tuya https://github.com/Smanar/deconz-rest-plugin.git && \
+    cd deconz-rest-plugin && \
+    qmake && make -j2 && \
+    cp ../libde_rest_plugin.so /usr/share/deCONZ/plugins && \
     mkdir /root/otau && \
     chown root:root /usr/bin/deCONZ*
 
