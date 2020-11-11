@@ -38,6 +38,7 @@ RUN apt-get update && \
         libqt5websockets5 \
         libqt5widgets5 \
         lsof \
+        gnupg \
         sqlite3 \
         tigervnc-standalone-server \
         tigervnc-common \
@@ -47,7 +48,7 @@ RUN apt-get update && \
         xfonts-scalable && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
-    wget -O - http://phoscon.de/apt/deconz.pub.key | apt-key add - && \
+    wget http://phoscon.de/apt/deconz.pub.key | apt-key add deconz.pub.key && \
     sh -c "echo 'deb http://phoscon.de/apt/deconz buster-beta main' > /etc/apt/sources.list.d/deconz.list" && \
     apt-get update && \
     apt-get install -y \
