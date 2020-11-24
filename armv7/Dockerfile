@@ -77,12 +77,13 @@ RUN chmod +x /start.sh && \
 #    mkdir /root/otau && \
 #    chown root:root /usr/bin/deCONZ*
 
-RUN git clone --branch tuya https://github.com/Smanar/deconz-rest-plugin.git && \
+RUN git clone https://github.com/dresden-elektronik/deconz-rest-plugin && \
     cd deconz-rest-plugin && \
     qmake && make -j2 && \
     cp ../libde_rest_plugin.so /usr/share/deCONZ/plugins && \
     mkdir /root/otau && \
-    chown root:root /usr/bin/deCONZ*
+    chown root:root /usr/bin/deCONZ* && \
+    rm -rf /deconz-rest-plugin
 
 VOLUME [ "/root/.local/share/dresden-elektronik/deCONZ" ]
 
