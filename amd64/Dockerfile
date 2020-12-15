@@ -24,6 +24,11 @@ ENV DEBIAN_FRONTEND=noninteractive \
 # Install deCONZ dependencies
 RUN apt-get update && \
     apt-get install -y \
+        git \
+        gnupg \
+        build-essential \
+        libx11-xcb-dev \
+        libglu1-mesa-dev \
         curl \
         kmod \
         libcap2-bin \
@@ -42,6 +47,14 @@ RUN apt-get update && \
         xfonts-base \
         xfonts-scalable && \
     apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    wget http://phoscon.de/apt/deconz.pub.key && \
+    apt-key add deconz.pub.key && \
+    sh -c "echo 'deb http://phoscon.de/apt/deconz buster-beta main' > /etc/apt/sources.list.d/deconz.list" && \
+    apt-get update && \
+    apt-get install -y \
+        deconz-dev && \
+    apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Workaround required on amd64 to address issue #292
@@ -57,12 +70,13 @@ COPY root /
 RUN chmod +x /start.sh && \
     chmod +x /firmware-update.sh
 
-# Add deCONZ, install deCONZ, make OTAU dir
-ADD http://deconz.dresden-elektronik.de/ubuntu/${CHANNEL}/deconz-${DECONZ_VERSION}-qt5.deb /deconz.deb
-RUN dpkg -i /deconz.deb && \
-    rm -f /deconz.deb && \
+RUN git clone https://github.com/kgorszczyk/deconz-rest-plugin && \
+    cd deconz-rest-plugin && \
+    qmake && make -j2 && \
+    cp ../libde_rest_plugin.so /usr/share/deCONZ/plugins && \
     mkdir /root/otau && \
-    chown root:root /usr/bin/deCONZ*
+    chown root:root /usr/bin/deCONZ* && \
+    rm -rf /deconz-rest-plugin
 
 VOLUME [ "/root/.local/share/dresden-elektronik/deCONZ" ]
 
