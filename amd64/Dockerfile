@@ -31,6 +31,7 @@ RUN apt-get update && \
         libglu1-mesa-dev \
         curl \
         kmod \
+        wget \
         libcap2-bin \
         libqt5core5a \
         libqt5gui5 \
