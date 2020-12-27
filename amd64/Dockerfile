@@ -69,7 +69,7 @@ COPY root /
 RUN chmod +x /start.sh && \
     chmod +x /firmware-update.sh
 
-RUN git clone --branch revolt https://github.com/kgorszczyk/deconz-rest-plugin deconz-rest-plugin && \
+RUN git clone --branch revolt https://github.com/Smanar/deconz-rest-plugin deconz-rest-plugin && \
     cd deconz-rest-plugin && \
     qmake && make -j2 && \
     cp ../libde_rest_plugin.so /usr/share/deCONZ/plugins && \
